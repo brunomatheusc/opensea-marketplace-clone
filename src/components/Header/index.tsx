@@ -24,6 +24,39 @@ export default function Header() {
 				<div className={styles.searchIcon}>
 					<AiOutlineSearch />
 				</div>
+
+				<input 
+					type="text" 
+					className={styles.searchInput} 
+					placeholder="Search items, collections and accounts"
+				/>
+			</div>
+
+			<div className={styles.headerItems}>
+				<Link href="/collections/0x57b0739323c81fE44f5AA4E537b96a508ed43EBF">
+					<div className={styles.headerItem}>Collections</div>
+				</Link>
+
+				<Link href="/stats">
+					<div className={styles.headerItem}>Stats</div>
+				</Link>
+
+				<Link href="/resources">
+					<div className={styles.headerItem}>Resources</div>
+				</Link>
+
+				<Link href="/create">
+					<div className={styles.headerItem}>Create</div>
+				</Link>
+
+				<Link href="/profile">
+					<div className={styles.headerIcon}><CgProfile /></div>
+				</Link>
+
+				<Link href="/wallet">
+					<div className={styles.headerIcon}><MdOutlineAccountBalanceWallet /></div>
+				</Link>
+
 			</div>
 		</div>
 	);
