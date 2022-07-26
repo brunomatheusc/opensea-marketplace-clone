@@ -1,9 +1,14 @@
 import type { NextPage } from 'next';
-import Header from '../src/components/Header';
+
+import { Header, Hero } from '../src/components';
 
 const Home: NextPage = () => {
 	return (
-		<Header />
+		<>
+			<Header />
+
+			<Hero />
+		</>
 	);
 }
 
