@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import type { NextPage } from 'next';
 import { useWeb3 } from '@3rdweb/hooks';
+import toast, { Toaster } from 'react-hot-toast';
 
 import { client } from '../src/lib/sanityClient';
 import { Header, Hero } from '../src/components';
@@ -15,6 +16,15 @@ const style = {
 const Home: NextPage = () => {
 	const { address, connectWallet } = useWeb3();
 
+	const welcomeUser = (username: string, toastHandler = toast) => {
+		toastHandler.success(`Welcome back${username !== 'Unnamed' ? ` ${username}` : ''}!`, {
+			style: {
+				background: '#04111d',
+				color: '#fff',
+			}
+		});
+	};
+
 	useEffect(() => {
 		if (!address) return;
 
@@ -27,11 +37,13 @@ const Home: NextPage = () => {
 			};
 
 			const result = await client.createIfNotExists(userDoc);
+			welcomeUser(result.userName);
 		})();
 	}, [address]);
 
 	return (
 		<div className={style.wrapper}>
+			<Toaster position="top-center" reverseOrder={false} />
 			{ address ? (
 			<>
 				<Header />
