@@ -1,6 +1,8 @@
 import '../styles/globals.css';
 import { ThemeProvider, DefaultTheme } from 'styled-components';
 import type { AppProps } from 'next/app';
+import { ThirdwebWeb3Provider } from '@3rdweb/hooks';
+
 import GlobalStyle from '../src/styles/GlobalStyle';
 
 const theme: DefaultTheme = {
@@ -10,13 +12,22 @@ const theme: DefaultTheme = {
 	}
 };
 
+/**
+ * The chain ID 4 represents the Rinkeby network 
+ * The `injected` connector is a web3 connection method used by Metamask
+*/
+const supportedChainIds = [4];
+const connectors = {
+	injected: {},
+}
+
 export default function App({ Component, pageProps }: AppProps) {
 	return (
-		<>		
+		<ThirdwebWeb3Provider supportedChainIds={supportedChainIds} connectors={connectors}>
 			<ThemeProvider theme={theme}>
-				<GlobalStyle />
+				<GlobalStyle />		
 				<Component {...pageProps} />
 			</ThemeProvider>
-		</>
+		</ThirdwebWeb3Provider>
 	);
 }
