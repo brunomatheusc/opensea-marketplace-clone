@@ -12,7 +12,7 @@
   resolved "https://registry.yarnpkg.com/@3rdweb/contracts/-/contracts-1.26.2.tgz#36f91f58265c668a47afbd077f566905587d5811"
   integrity sha512-h/nwiH9nVHRgB+PYiLc5MLsas8TR0x/jPKI9a6wsSqFsGry/w/1MsN1HYplZR6i5j5LC+WomXNX7tjRyjGHoog==
 
-"@3rdweb/hooks@^1", "@3rdweb/hooks@^1.9.2":
+"@3rdweb/hooks@^1", "@3rdweb/hooks@^1.8.0":
   version "1.9.2"
   resolved "https://registry.yarnpkg.com/@3rdweb/hooks/-/hooks-1.9.2.tgz#0a134eb93096b5ff8e5fd7e59a8f01845cc77104"
   integrity sha512-JKvQKSB0ombfCso7PET6tUkueXwjppOfxKaFGk3aoJahkzAOx5eN3QFKzkjOZu/Qd+D8EnvixU8EkF3c2seP0A==
@@ -42,7 +42,7 @@
     framer-motion "^5.3.0"
     react-icons "^4.3.1"
 
-"@3rdweb/sdk@^1.42.1":
+"@3rdweb/sdk@^1.36.11":
   version "1.42.1"
   resolved "https://registry.yarnpkg.com/@3rdweb/sdk/-/sdk-1.42.1.tgz#6cdac9a79bc6805ee8ecc37bc4e148437b9740da"
   integrity sha512-gMdBbtm/+SC1c/ZorkH67+4+aaR3LuR0Q89uEsQ4uyDXrFlqp76O+cxUCvn+fomfj5SKBPueEyVCrvh2RdKA7Q==

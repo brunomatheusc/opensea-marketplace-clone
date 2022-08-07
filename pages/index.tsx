@@ -44,6 +44,7 @@ const Home: NextPage = () => {
 	return (
 		<div className={style.wrapper}>
 			<Toaster position="top-center" reverseOrder={false} />
+			
 			{ address ? (
 			<>
 				<Header />
