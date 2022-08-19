@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 
 import { useWeb3 } from "@3rdweb/hooks";
 import { AuctionListing, DirectListing, NFTMetadata, ThirdwebSDK } from "@3rdweb/sdk";
+import { useAddress, useContract, useNFTs, useOwnedNFTs } from '@thirdweb-dev/react';
 
 import { AiOutlineInstagram, AiOutlineTwitter } from "react-icons/ai";
 import { HiDotsVertical } from "react-icons/hi"
@@ -11,6 +12,7 @@ import { client } from "../../src/lib/sanityClient";
 import { Header } from "../../src/components";
 import { CgWebsite } from "react-icons/cg";
 import NFTCard from "../../src/components/NFTCard";
+import { APP_CONFIG } from "../../src/config";
 
 const styles = {
 	bannerImageContainer: `h-[20vh] w-screen overflow-hidden flex justify-center items-center`,
@@ -53,6 +55,11 @@ interface CollectionProps {
 export default function Collection() {
 	const { query: { collectionId }} = useRouter();
 	const { provider } = useWeb3();
+	const metamaskAddress = useAddress();
+
+	const { contract } = useContract(APP_CONFIG.COLLECTION_ADDRESS);
+	const { data: nftsData, isLoading, error } = useNFTs(contract?.nft, { start: 0, count: 100 });
+	const { data: ownedNFTs } = useOwnedNFTs(contract?.nft, metamaskAddress);
 	
 	const [collection, setCollection] = useState<CollectionProps>({} as CollectionProps);
 	const [nfts, setNfts] = useState<NFTMetadata[]>([]);
@@ -65,10 +72,7 @@ export default function Collection() {
 			return;
 		}
 
-		const sdk = new ThirdwebSDK(
-			provider?.getSigner(),
-			{ readOnlyRpcUrl: 'https://eth-rinkeby.alchemyapi.io/v2/HCAFadnuYUpLeKE_JODyTWlfkXzwlc98' }
-		);
+		const sdk = new ThirdwebSDK(provider?.getSigner());
 
 		return sdk.getNFTModule(collectionId as string);
 	}, [provider]);
@@ -78,26 +82,28 @@ export default function Collection() {
 
 		(async () => {
 			const nfts = await nftModule.getAll();
+			console.log({ nfts });
 			setNfts(nfts);
 		})();
-	}, [nftModule]);
+	}, [nftModule, ownedNFTs]);
 
 	const marketplaceModule = useMemo(() => {
 		if (!provider) return;
 
-		const sdk = new ThirdwebSDK(
-			provider?.getSigner(),
-			{ readOnlyRpcUrl: 'https://eth-rinkeby.alchemyapi.io/v2/HCAFadnuYUpLeKE_JODyTWlfkXzwlc98' }
-		);
+		const sdk = new ThirdwebSDK(provider?.getSigner());
 
-		return sdk.getMarketplaceModule('0x715AFFeEFdfEa81Dc3E4959F1d304225Bc1e7f34');
+		return sdk.getMarketplaceModule(APP_CONFIG.MARKETPLACE_CONTRACT_ADDRESS);
 	}, [provider]);
 
 	useEffect(() => {
 		if (!marketplaceModule) return;
 
 		(async () => {
-			setListings(await marketplaceModule.getAllListings());
+			console.log({ ownedNFTs });
+
+			const listingsData = await marketplaceModule.getAllListings();
+			console.log({ listingsData });
+			setListings(listingsData);
 		})();
 	}, [marketplaceModule]);
 	
@@ -205,7 +211,7 @@ export default function Collection() {
 							<div className={styles.collectionStat}>
 								<div className={styles.statValue}>
 									<img src="https://openseauserdata.com/files/6f8e2979d428180222796ff4a33ab929.svg" className={styles.ethLogo} alt="eth" />
-									{ collection?.volumeTraded }.5k
+									{ collection?.volumeTraded }k
 								</div>
 	
 								<div className={styles.statName}>volume traded</div>
@@ -219,14 +225,14 @@ export default function Collection() {
 				</div>	
 	
 				<div className="flex flex-wrap">
-					{ nfts.map((nftItem, id) => (
-						<NFTCard 
-							key={id}
-							nftItem={nftItem}
-							title={collection?.title}
-							listings={listings}
-						/>
-					))}	
+				{ nfts.map((nftItem, id) => (
+					<NFTCard 
+						key={id}
+						nftItem={nftItem}
+						title={collection?.title}
+						listings={listings}
+					/>
+				))}	
 				</div>	
 			</div>
 		)}

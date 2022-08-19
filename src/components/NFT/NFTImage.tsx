@@ -23,7 +23,7 @@ export default function NFTImage ({ selectedNFT }: NFTImageProps) {
 			</div>
 
 			<div>
-				<img src={selectedNFT?.image} alt="NFT Item image" />
+				<img src={selectedNFT?.image} alt="NFT Item image" className="w-full mt-4" />
 			</div>
 		</div>
 	);

@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import type { NextPage } from 'next';
+import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
 import { useWeb3 } from '@3rdweb/hooks';
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -15,6 +16,8 @@ const style = {
 
 const Home: NextPage = () => {
 	const { address, connectWallet } = useWeb3();
+	const connectWithMetamask = useMetamask();
+	const metamaskAddress = useAddress();
 
 	const welcomeUser = (username: string, toastHandler = toast) => {
 		toastHandler.success(`Welcome back${username !== 'Unnamed' ? ` ${username}` : ''}!`, {
@@ -26,26 +29,26 @@ const Home: NextPage = () => {
 	};
 
 	useEffect(() => {
-		if (!address) return;
+		if (!metamaskAddress) return;
 
 		(async () => {
 			const userDoc = {
 				_type: 'users',
-				_id: address,
+				_id: metamaskAddress,
 				userName: 'Unnamed',
-				walletAddress: address,
+				walletAddress: metamaskAddress,
 			};
 
 			const result = await client.createIfNotExists(userDoc);
 			welcomeUser(result.userName);
 		})();
-	}, [address]);
+	}, [metamaskAddress]);
 
 	return (
 		<div className={style.wrapper}>
 			<Toaster position="top-center" reverseOrder={false} />
 			
-			{ address ? (
+			{ metamaskAddress ? (
 			<>
 				<Header />
 
@@ -53,7 +56,8 @@ const Home: NextPage = () => {
 			</>
 			) : (
 				<div className={style.walletConnectWrapper}>
-					<button className={style.button} onClick={() => connectWallet('injected')}>
+					{/* <button className={style.button} onClick={() => connectWallet('injected')}> */}
+					<button className={style.button} onClick={() => connectWithMetamask()}>
 						Connect Wallet
 					</button>
 

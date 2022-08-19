@@ -6,6 +6,7 @@ import { CgProfile } from 'react-icons/cg';
 import { MdOutlineAccountBalanceWallet } from 'react-icons/md';
 
 import openseaLogo from '../../assets/opensea.png';
+import { APP_CONFIG } from '../../config';
 
 import { styles } from './styles';
 
@@ -33,7 +34,7 @@ export default function Header() {
 			</div>
 
 			<div className={styles.headerItems}>
-				<Link href="/collections/0x57b0739323c81fE44f5AA4E537b96a508ed43EBF">
+				<Link href={`/collections/${APP_CONFIG.COLLECTION_ADDRESS}`}>
 					<div className={styles.headerItem}>Collections</div>
 				</Link>
 
