@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
 import type { NextPage } from 'next';
-import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
-import { useWeb3 } from '@3rdweb/hooks';
+import { useAddress, useMetamask } from "@thirdweb-dev/react";
 import toast, { Toaster } from 'react-hot-toast';
 
-import { client } from '../src/lib/sanityClient';
-import { Header, Hero } from '../src/components';
+import { client } from 'lib/sanityClient';
+import { Header, Hero } from 'components';
 
 const style = {
 	wrapper: ``,
@@ -15,7 +14,6 @@ const style = {
 }
 
 const Home: NextPage = () => {
-	const { address, connectWallet } = useWeb3();
 	const connectWithMetamask = useMetamask();
 	const metamaskAddress = useAddress();
 

@@ -5,14 +5,13 @@ import { useWeb3 } from "@3rdweb/hooks";
 import { AuctionListing, DirectListing, NFTMetadata, ThirdwebSDK } from "@3rdweb/sdk";
 
 import { AiOutlineInstagram, AiOutlineTwitter } from "react-icons/ai";
+import { CgWebsite } from "react-icons/cg";
 import { HiDotsVertical } from "react-icons/hi"
 
-import { APP_CONFIG } from "../../src/config";
+import { APP_CONFIG } from "config";
+import { client } from "lib/sanityClient";
 
-import { client } from "../../src/lib/sanityClient";
-import { Header } from "../../src/components";
-import { CgWebsite } from "react-icons/cg";
-import NFTCard from "../../src/components/NFTCard";
+import { Header, NFTCard } from "components";
 
 const styles = {
 	bannerImageContainer: `h-[20vh] w-screen overflow-hidden flex justify-center items-center`,

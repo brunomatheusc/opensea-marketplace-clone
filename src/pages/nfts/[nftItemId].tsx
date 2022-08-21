@@ -4,13 +4,13 @@ import { useWeb3 } from "@3rdweb/hooks";
 
 import { AuctionListing, DirectListing, NFTMetadata, ThirdwebSDK } from "@3rdweb/sdk";
 
-import { APP_CONFIG } from "../../src/config";
+import { APP_CONFIG } from "../../config";
 
-import { Header, Purchase } from "../../src/components";
+import { Header, Purchase } from "../../components";
 
-import NFTImage from "../../src/components/NFT/NFTImage";
-import GeneralDetails from "../../src/components/NFT/GeneralDetails";
-import ItemActivity from "../../src/components/NFT/ItemActivity";
+import NFTImage from "../../components/NFT/NFTImage";
+import GeneralDetails from "../../components/NFT/GeneralDetails";
+import ItemActivity from "../../components/NFT/ItemActivity";
 
 const styles = {
 	wrapper: `flex flex-col items-center container-lg text-[#e5e8eb]`,
